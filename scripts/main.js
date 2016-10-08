@@ -1,7 +1,7 @@
 var GameState = {
     preload: function() {
-       this.load.tilemap('map1', '/assets/map1.json', null, Phaser.Tilemap.TILED_JSON);
-       this.load.image('tiles', '/assets/tileset.png');
+       this.load.tilemap('map1', 'assets/map1.json', null, Phaser.Tilemap.TILED_JSON);
+       this.load.image('tiles', 'assets/tileset.png');
     },
 
     create: function() {
