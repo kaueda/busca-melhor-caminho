@@ -5,15 +5,20 @@ var GameState = {
     },
 
     create: function() {
-        map = this.add.tilemap('map1');
-        map.addTilesetImage('tiles', 'tiles');
+        this.map = this.add.tilemap('map1');
+        this.map.addTilesetImage('tiles', 'tiles');
 
-        layer = map.createLayer('terrain');
-        layer.resizeWorld();
-        layer.wrap = true;
+        this.layer = map.createLayer('terrain');
+        this.layer.resizeWorld();
+        this.layer.wrap = true;
+
+        this.cursors = this.game.input.keyboard.createCursorKeys();
     },
 
     update: function() {
+        if (this.input.mousePointer.isDown) {
+            this.map.getTile(this.input.x, this.input.y, this.layer, true).index = 5
+        }
     }
 };
 
