@@ -8,7 +8,7 @@ var GameState = {
         this.map = this.add.tilemap('map1');
         this.map.addTilesetImage('tiles', 'tiles');
 
-        this.layer = map.createLayer('terrain');
+        this.layer = this.map.createLayer('terrain');
         this.layer.resizeWorld();
         this.layer.wrap = true;
 
