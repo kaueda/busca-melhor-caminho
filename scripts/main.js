@@ -85,7 +85,7 @@ var GameState = {
                         return;
                     }
                     // pinta de amarelo
-                    this.map.putTile(this.tiles.visited, neighbor.x, neighbor.y, this.over);
+                    this.map.putTile(this.tiles.visited, neighbors[i].x, neighbors[i].y, this.over);
                     queue.push(neighbors[i]);
                 }
             }
