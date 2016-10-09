@@ -28,7 +28,8 @@ var GameState = {
         if (this.input.mousePointer.isDown) {
             this.map.putTile(this.tiles.finished, 
                               this.over.getTileX(this.input.worldX), 
-                              this.over.getTileY(this.input.worldY));
+                              this.over.getTileY(this.input.worldY),
+                              this.over);
         }
     },
 
@@ -63,6 +64,7 @@ var GameState = {
         console.log(start)
         if (start == null) return;
         
+        var parent = null;
         var queue = new Array();
 
         start.visited = 2;
@@ -76,14 +78,24 @@ var GameState = {
                 if (neighbors[i].visited != 2) {
                     neighbors[i].visited = 2;
                     neighbors[i].traceback = current;
+
+                    if (neighbors[i].index == this.tiles.end) {
+                        parent = neighbors[i];
+                        return;
+                    }
                     // pinta de amarelo
-                    //this.map.putTile(this.tiles.visited, neighbor.x, neighbor.y);
+                    this.map.putTile(this.tiles.visited, neighbor.x, neighbor.y, this.over);
                     queue.push(neighbors[i]);
                 }
             }
 
             // pinta de azul
-            //this.map.putTile(this.tiles.visited, current.x, current.y);
+            this.map.putTile(this.tiles.visited, current.x, current.y, this.over);
+        }
+
+        while (parent.index != this.tiles.start) {
+            this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
+            parent = parent.traceback;
         }
     },
 
