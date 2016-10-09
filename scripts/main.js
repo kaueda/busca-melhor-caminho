@@ -18,7 +18,7 @@ var GameState = {
         this.cursors = this.input.keyboard.createCursorKeys();
 
         for (i in this.map.tiles) this.map.tiles[i].visited = 0;
-        //this.bfs(this.map.searchTileIndex(this.tiles.start))
+        this.bfs(this.map.searchTileIndex(this.tiles.start))
     },
 
     update: function() {
@@ -26,9 +26,6 @@ var GameState = {
             this.map.putTile(this.tiles.finished, 
                               this.over.getTileX(this.input.worldX), 
                               this.over.getTileY(this.input.worldY));
-        }
-        if (this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-            // Itera sobre o algoritmo e atualiza o mapa
         }
     },
 
@@ -51,6 +48,7 @@ var GameState = {
     },
 
     bfs: function(start) {
+        console.log(start)
         var queue = new Array();
 
         start.visited = 2;
