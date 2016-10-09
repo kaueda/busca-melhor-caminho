@@ -23,7 +23,7 @@ var GameState = {
 
     update: function() {
         if (this.input.mousePointer.isDown) {
-            this.over.putTile(this.tiles.finished, 
+            this.map.putTile(this.tiles.finished, 
                               this.over.getTileX(this.input.worldX), 
                               this.over.getTileY(this.input.worldY));
         }
