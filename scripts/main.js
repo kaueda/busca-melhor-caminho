@@ -37,13 +37,8 @@ var GameState = {
         var ans = new Array()
         var auxTile = null;
 
-        if(tile.x + 1 < this.map.width) {
-            auxTile = this.map.getTile(tile.x + 1, tile.y, this.main, true)
-            if (auxTile.index > 0) ans.push(auxTile)
-        }
-
-        if(tile.x - 1 >= 0) {
-            auxTile = this.map.getTile(tile.x - 1, tile.y, this.main, true)
+        if(tile.y - 1 >= 0) {
+            auxTile = this.map.getTile(tile.x, tile.y - 1, this.main, true)
             if (auxTile.index > 0) ans.push(auxTile)
         }
 
@@ -52,8 +47,13 @@ var GameState = {
             if (auxTile.index > 0) ans.push(auxTile)
         }
 
-        if(tile.y - 1 >= 0) {
-            auxTile = this.map.getTile(tile.x, tile.y - 1, this.main, true)
+        if(tile.x - 1 >= 0) {
+            auxTile = this.map.getTile(tile.x - 1, tile.y, this.main, true)
+            if (auxTile.index > 0) ans.push(auxTile)
+        }
+
+        if(tile.x + 1 < this.map.width) {
+            auxTile = this.map.getTile(tile.x + 1, tile.y, this.main, true)
             if (auxTile.index > 0) ans.push(auxTile)
         }
 
@@ -78,7 +78,7 @@ var GameState = {
             for (i in neighbors) {
                 if (neighbors[i].index == this.tiles.wall 
                     || neighbors[i].index == this.tiles.wall2) continue;
-                    
+
                 if (neighbors[i].visited != 2) {
                     neighbors[i].visited = 2;
                     neighbors[i].traceback = current;
