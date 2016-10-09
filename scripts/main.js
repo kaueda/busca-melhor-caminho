@@ -42,7 +42,7 @@ var GameState = {
             if (auxTile.index > 0) ans.push(auxTile)
         }
 
-        if(tile.x - 1 > 0) {
+        if(tile.x - 1 >= 0) {
             auxTile = this.map.getTile(tile.x - 1, tile.y, this.main, true)
             if (auxTile.index > 0) ans.push(auxTile)
         }
@@ -52,7 +52,7 @@ var GameState = {
             if (auxTile.index > 0) ans.push(auxTile)
         }
 
-        if(tile.y - 1 > 0) {
+        if(tile.y - 1 >= 0) {
             auxTile = this.map.getTile(tile.x, tile.y - 1, this.main, true)
             if (auxTile.index > 0) ans.push(auxTile)
         }
@@ -91,10 +91,11 @@ var GameState = {
             }
 
             // pinta de azul
-            this.map.putTile(this.tiles.visited, current.x, current.y, this.over);
+            this.map.putTile(this.tiles.finished, current.x, current.y, this.over);
         }
 
         while (parent.index != this.tiles.start) {
+            console.log(parent);
             this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
             parent = parent.traceback;
         }
