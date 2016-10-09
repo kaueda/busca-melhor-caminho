@@ -121,7 +121,7 @@ var GameState = {
             current = queue.shift();
             // console.log(current.index);
 
-            neighbors = this.findNeighbors(current)
+            var neighbors = this.findNeighbors(current)
             for (i in neighbors) {
                 if (neighbors[i].index == this.tiles.wall 
                     || neighbors[i].index == this.tiles.wall2) continue;
@@ -168,7 +168,7 @@ var GameState = {
             
             if (current.index == this.tiles.end) break;
 
-            neighbors = this.findNeighbors(current)
+            var neighbors = this.findNeighbors(current)
             for (i in neighbors) {
                 if (neighbors[i].index == this.tiles.wall 
                     || neighbors[i].index == this.tiles.wall2) continue;
