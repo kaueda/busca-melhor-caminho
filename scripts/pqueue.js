@@ -1,4 +1,4 @@
-var PriorityQueue {
+class PriorityQueue {
     constructor() {
         this.queue = new Array();
     }
