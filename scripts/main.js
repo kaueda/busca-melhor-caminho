@@ -34,19 +34,28 @@ var GameState = {
 
     findNeighbors: function(tile) {
         var ans = new Array()
+        var auxTile = null;
 
-        if(tile.x + 1 < this.map.width)
-            ans.push(new Phaser.Point(tile.x + 1, tile.y));
+        if(tile.x + 1 < this.map.width) {
+            auxTile = this.map.getTile(tile.x + 1, tile.y, this.main, true)
+            if (aux.index > 0) ans.push(auxTile)
+        }
 
-        if(tile.x - 1 > 0)
-            ans.push(new Phaser.Point(tile.x - 1, tile.y));
-        
-        if(tile.y + 1 < this.map.height)
-            ans.push(new Phaser.Point(tile.x, tile.y + 1));
-        
-        if(tile.y - 1 > 0)
-            ans.push(new Phaser.Point(tile.x, tile.y - 1));
-        
+        if(tile.x - 1 > 0) {
+            auxTile = this.map.getTile(tile.x - 1, tile.y, this.main, true)
+            if (aux.index > 0) ans.push(auxTile)
+        }
+
+        if(tile.y + 1 < this.map.height) {
+            auxTile = this.map.getTile(tile.x, tile.y + 1, this.main, true)
+            if (aux.index > 0) ans.push(auxTile)
+        }
+
+        if(tile.y - 1 > 0) {
+            auxTile = this.map.getTile(tile.x, tile.y - 1, this.main, true)
+            if (aux.index > 0) ans.push(auxTile)
+        }
+
         return ans 
     },
 
@@ -62,15 +71,14 @@ var GameState = {
         while (queue.length > 0) {
             current = queue.shift();
 
-            neighbors = findNeighbors(current)
+            neighbors = this.findNeighbors(current)
             for (i in neighbors) {
-                neighbor = this.map.getTile(neighbors[i].x, neighbors[i].y)
-                if (neighbor.visited != 2) {
-                    neighbor.visited = 2;
-                    neighbor.traceback = current;
+                if (neighbors[i].visited != 2) {
+                    neighbors[i].visited = 2;
+                    neighbors[i].traceback = current;
                     // pinta de amarelo
                     //this.map.putTile(this.tiles.visited, neighbor.x, neighbor.y);
-                    queue.push(neighbor);
+                    queue.push(neighbors[i]);
                 }
             }
 
