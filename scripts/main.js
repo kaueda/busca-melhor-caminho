@@ -24,8 +24,8 @@ var GameState = {
     update: function() {
         if (this.input.mousePointer.isDown) {
             this.over.putTile(this.tiles.finished, 
-                             this.main.getTileX(this.input.worldX), 
-                             this.main.getTileY(this.input.worldY));
+                              this.over.getTileX(this.input.worldX), 
+                              this.over.getTileY(this.input.worldY));
         }
         if (this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
             // Itera sobre o algoritmo e atualiza o mapa
