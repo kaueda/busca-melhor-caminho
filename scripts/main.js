@@ -182,11 +182,12 @@ var GameState = {
                 if (neighbors[i].distance > newDistance) {
                     neighbors[i].distance = newDistance;
                     neighbors[i].traceback = current;
+                    
+                    queue.push(neighbors[i]);
+                    queue.sort(function(a, b) { return a.distance < b.distance })
                 }
                 // pinta de amarelo
                 this.map.putTile(this.tiles.visited, neighbors[i].x, neighbors[i].y, this.over);
-                queue.push(neighbors[i]);
-                queue.sort(function(a, b) { return a.distance < b.distance })
             }
 
             // pinta de azul
