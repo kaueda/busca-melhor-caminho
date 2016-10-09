@@ -61,7 +61,7 @@ var GameState = {
     },
 
     bfs: function(start) {
-        console.log(start)
+        console.log(start);
         if (start == null) return;
         
         var parent = null;
@@ -72,6 +72,7 @@ var GameState = {
 
         while (queue.length > 0) {
             current = queue.shift();
+            console.log(current.index);
 
             neighbors = this.findNeighbors(current)
             for (i in neighbors) {
