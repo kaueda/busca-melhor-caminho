@@ -61,7 +61,7 @@ var GameState = {
     },
 
     bfs: function(start) {
-        console.log(start);
+        // console.log(start);
         if (start == null) return;
         
         var parent = null;
@@ -71,7 +71,7 @@ var GameState = {
         queue.push(start);
 
         while (queue.length > 0) {
-            current = queue.shift();
+            // current = queue.shift();
             console.log(current.index);
 
             neighbors = this.findNeighbors(current)
@@ -82,7 +82,7 @@ var GameState = {
 
                     if (neighbors[i].index == this.tiles.end) {
                         parent = neighbors[i];
-                        return;
+                        break;
                     }
                     // pinta de amarelo
                     this.map.putTile(this.tiles.visited, neighbors[i].x, neighbors[i].y, this.over);
