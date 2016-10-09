@@ -67,7 +67,7 @@ var GameState = {
 
     clearMap: function() {
         for (var x in this.map.width) {
-            for(var y in this.map.height) {
+            for (var y in this.map.height) {
                 this.map.getTile(x, y, this.main, true).visited = 0;
                 this.map.getTile(x, y, this.main, true).distance = Infinity;
                 this.map.getTile(x, y, this.main, true).iwas = this.tiles.empty;
@@ -122,7 +122,7 @@ var GameState = {
             // console.log(current.index);
 
             var neighbors = this.findNeighbors(current)
-            for (i in neighbors) {
+            for (var i in neighbors) {
                 if (neighbors[i].index == this.tiles.wall 
                     || neighbors[i].index == this.tiles.wall2) continue;
 
@@ -169,7 +169,7 @@ var GameState = {
             if (current.index == this.tiles.end) break;
 
             var neighbors = this.findNeighbors(current)
-            for (i in neighbors) {
+            for (var i in neighbors) {
                 if (neighbors[i].index == this.tiles.wall 
                     || neighbors[i].index == this.tiles.wall2) continue;
 
