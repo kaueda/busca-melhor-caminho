@@ -76,6 +76,9 @@ var GameState = {
 
             neighbors = this.findNeighbors(current)
             for (i in neighbors) {
+                if (neighbors[i].index == this.tiles.wall 
+                    || neighbors[i].index == this.tiles.wall2) continue;
+                    
                 if (neighbors[i].visited != 2) {
                     neighbors[i].visited = 2;
                     neighbors[i].traceback = current;
