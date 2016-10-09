@@ -17,7 +17,7 @@ var GameState = {
 
     update: function() {
         if (this.input.mousePointer.isDown) {
-            this.map.putTile(tiles.visited, 
+            this.map.putTile(this.tiles.visited, 
                              this.layer.getTileX(this.input.worldX), 
                              this.layer.getTileY(this.input.worldY));
         }
