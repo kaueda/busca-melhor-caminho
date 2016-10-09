@@ -5,8 +5,6 @@ var GameState = {
     },
 
     create: function() {
-        this.input.mouse.capture = true;
-
         this.map = this.add.tilemap('map1');
         this.map.addTilesetImage('tiles', 'tiles');
 
@@ -17,17 +15,12 @@ var GameState = {
         this.over = this.map.createBlankLayer('over', 10, 10, 32, 32);
         this.over.alpha = 0.2;
         
-        this.cursors = this.input.keyboard.createCursorKeys();
+        this.clearMap();
 
-        for (var x in this.map.width) {
-            for(var y in this.map.height) {
-                this.map.getTile(x, y, this.main, true).visited = 0;
-                this.map.getTile(x, y, this.main, true).distance = Infinity;
-            }
-        }
+        this.input.mouse.capture = true;
+        // this.cursors = this.input.keyboard.createCursorKeys();
 
         var keyaux;
-        
         keyaux = this.input.keyboard.addKey(Phaser.Keyboard.ONE);
         keyaux.onDown.add(this.bfs, this);
         this.input.keyboard.removeKeyCapture(Phaser.Keyboard.ONE);
@@ -47,28 +40,36 @@ var GameState = {
 
         if (this.input.activePointer.leftButton.isDown) {
             var endTile = this.map.searchTileIndex(this.tiles.end, 0, false, this.main);
-            this.map.putTile(this.tiles.empty, 
-                              endTile.x, 
-                              endTile.y,
-                              this.main);
+            var newEndTile = this.map.getTileWorldXY(this.input.worldX, this.input.worldY, 32, 32, this.main);
 
-            this.map.putTile(this.tiles.end, 
-                              this.main.getTileX(this.input.worldX), 
-                              this.main.getTileY(this.input.worldY),
-                              this.main);
+            if (newEndTile.index != this.tiles.start && newEndTile.index != this.tiles.end) {
+                newEndTile.iwas = newEndTile.index;
+                this.map.putTile(endTile.iwas, endTile.x, endTile.y, this.main);
+                this.map.putTile(this.tiles.end, newEndTile.x, newEndTile.y, this.main);
+            }
         }
 
         if (this.input.activePointer.middleButton.isDown) {
             var startTile = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
-            this.map.putTile(this.tiles.empty, 
-                              startTile.x, 
-                              startTile.y,
-                              this.main);
+            var newStartTile = this.map.getTileWorldXY(this.input.worldX, this.input.worldY, 32, 32, this.main);
 
-            this.map.putTile(this.tiles.start, 
-                              this.main.getTileX(this.input.worldX), 
-                              this.main.getTileY(this.input.worldY),
-                              this.main);
+            if (newStartTile.index != this.tiles.start && newStartTile.index != this.tiles.end) {
+                newStartTile.iwas = newStartTile.index;
+                this.map.putTile(startTile.iwas, startTile.x, startTile.y, this.main);
+                this.map.putTile(this.tiles.start, newStartTile.x, newStartTile.y, this.main);
+            }
+        }
+    },
+
+    clearMap: function() {
+        for (var x in this.map.width) {
+            for(var y in this.map.height) {
+                this.map.getTile(x, y, this.main, true).visited = 0;
+                this.map.getTile(x, y, this.main, true).distance = Infinity;
+                this.map.getTile(x, y, this.main, true).iwas = this.tiles.empty;
+
+                this.map.putTile(null, x, y, this.over);
+            }
         }
     },
 
