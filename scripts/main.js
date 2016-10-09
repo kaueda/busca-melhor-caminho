@@ -17,11 +17,18 @@ var GameState = {
         
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        for (var x in this.map.width)
-            for(var y in this.map.height)
+        for (var x in this.map.width) {
+            for(var y in this.map.height) {
                 this.map.getTile(x, y, this.main, true).visited = 0;
+                this.map.getTile(x, y, this.main, true).distance = Infinity;
+            }
+        }
 
-        this.bfs(this.map.searchTileIndex(this.tiles.start, 0, false, this.main))
+        var startTile = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
+        var endTile = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
+        // this.bfs(startTile);
+        this.dijkstra(startTile);
+        // this.aStar(startTile, endTile);
     },
 
     update: function() {
@@ -68,6 +75,7 @@ var GameState = {
         var queue = new Array();
 
         start.visited = 2;
+        start.traceback = null;
         queue.push(start);
 
         while (queue.length > 0) {
@@ -104,8 +112,52 @@ var GameState = {
         }
     },
 
-    a_star: function(start, end) {
+    dijkstra: function(start) {
+        // console.log(start);
+        if (start == null) return;
+        
+        var parent = null;
+        var queue = new Array();
 
+        start.traceback = null;
+        start.distance = 0;
+        queue.push(start);
+
+        while (queue.length > 0) {
+            current = queue.shift();
+            
+            if (current.index == this.tiles.end) break;
+
+            neighbors = this.findNeighbors(current)
+            for (i in neighbors) {
+                if (neighbors[i].index == this.tiles.wall 
+                    || neighbors[i].index == this.tiles.wall2) continue;
+
+                var newDistance;
+                if (neighbors[i].index == this.tiles.mud)
+                    newDistance = current.distance + 2;
+                else
+                    newDistance = current.distance + 1;
+
+                if (neighbors[i].distance > newDistance) {
+                    neighbors[i].distance = newDistance;
+                    neighbors[i].traceback = current;
+                }
+                // pinta de amarelo
+                this.map.putTile(this.tiles.visited, neighbors[i].x, neighbors[i].y, this.over);
+                queue.push(neighbors[i]);
+                queue.sort(function(a, b) { return a.distance < b.distance })
+            }
+
+            // pinta de azul
+            this.map.putTile(this.tiles.finished, current.x, current.y, this.over);
+        }
+
+        while (parent.index != this.tiles.start) {
+            console.log(parent);
+            this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
+            parent = parent.traceback;
+        }
     },
 
     tiles: {
