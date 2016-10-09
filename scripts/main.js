@@ -75,6 +75,7 @@ var GameState = {
                 this.map.putTile(null, x, y, this.over);
             }
         }
+        console.log("Map cleared");
     },
 
     findNeighbors: function(tile) {
