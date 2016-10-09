@@ -28,10 +28,10 @@ var GameState = {
         end:      5,
         wall:     7,
         wall2:    8,
-        mud:      9,
-        empty:    6,
-        visited:  2,
-        finished: 0
+        mud:      4,
+        empty:    3,
+        visited:  6,
+        finished: 1
     }
 };
 
