@@ -5,6 +5,8 @@ var GameState = {
     },
 
     create: function() {
+        this.input.mouse.capture = true;
+
         this.map = this.add.tilemap('map1');
         this.map.addTilesetImage('tiles', 'tiles');
 
@@ -24,19 +26,49 @@ var GameState = {
             }
         }
 
-        var startTile = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
-        var endTile = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
-        // this.bfs(startTile);
-        this.dijkstra(startTile);
-        // this.aStar(startTile, endTile);
+        var keyaux;
+        
+        keyaux = this.input.keyboard.addKey(Phaser.Keyboard.ONE);
+        keyaux.onDown.add(this.bfs, this);
+        this.input.keyboard.removeKeyCapture(Phaser.Keyboard.ONE);
+
+        keyaux = this.input.keyboard.addKey(Phaser.Keyboard.TWO);
+        keyaux.onDown.add(this.dijkstra, this);
+        this.input.keyboard.removeKeyCapture(Phaser.Keyboard.TWO);
+
+        // keyaux = this.input.keyboard.addKey(Phaser.Keyboard.THREE);
+        // keyaux.onDown.add(this.aStar, this);
+        // this.input.keyboard.removeKeyCapture(Phaser.Keyboard.THREE);
     },
 
     update: function() {
-        if (this.input.mousePointer.isDown) {
-            this.map.putTile(this.tiles.finished, 
-                              this.over.getTileX(this.input.worldX), 
-                              this.over.getTileY(this.input.worldY),
-                              this.over);
+        if (this.input.activePointer.withinGame) this.input.enabled = true;
+        else this.input.enabled = false;
+
+        if (this.input.activePointer.leftButton.isDown) {
+            var endTile = this.map.searchTileIndex(this.tiles.end, 0, false, this.main);
+            this.map.putTile(this.tiles.empty, 
+                              endTile.x, 
+                              endTile.y,
+                              this.main);
+
+            this.map.putTile(this.tiles.end, 
+                              this.main.getTileX(this.input.worldX), 
+                              this.main.getTileY(this.input.worldY),
+                              this.main);
+        }
+
+        if (this.input.activePointer.middleButton.isDown) {
+            var startTile = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
+            this.map.putTile(this.tiles.empty, 
+                              startTile.x, 
+                              startTile.y,
+                              this.main);
+
+            this.map.putTile(this.tiles.start, 
+                              this.main.getTileX(this.input.worldX), 
+                              this.main.getTileY(this.input.worldY),
+                              this.main);
         }
     },
 
@@ -67,8 +99,8 @@ var GameState = {
         return ans 
     },
 
-    bfs: function(start) {
-        // console.log(start);
+    bfs: function() {
+        var start = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
         if (start == null) return;
         
         var parent = null;
@@ -112,8 +144,8 @@ var GameState = {
         }
     },
 
-    dijkstra: function(start) {
-        // console.log(start);
+    dijkstra: function() {
+        var start = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
         if (start == null) return;
         
         var parent = null;
@@ -153,11 +185,16 @@ var GameState = {
             this.map.putTile(this.tiles.finished, current.x, current.y, this.over);
         }
 
-        while (parent.index != this.tiles.start) {
-            console.log(parent);
-            this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
-            parent = parent.traceback;
-        }
+        // while (parent.index != this.tiles.start) {
+        //     console.log(parent);
+        //     this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
+        //     parent = parent.traceback;
+        // }
+    },
+
+    aStar: function() {
+        var start = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
+        var end = this.map.searchTileIndex(this.tiles.end, 0, false, this.main);
     },
 
     tiles: {
