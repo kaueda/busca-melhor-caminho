@@ -21,6 +21,10 @@ var GameState = {
         // this.cursors = this.input.keyboard.createCursorKeys();
 
         var keyaux;
+        keyaux = this.input.keyboard.addKey(Phaser.Keyboard.ZERO);
+        keyaux.onDown.add(this.clearMap, this);
+        this.input.keyboard.removeKeyCapture(Phaser.Keyboard.ZERO);
+
         keyaux = this.input.keyboard.addKey(Phaser.Keyboard.ONE);
         keyaux.onDown.add(this.bfs, this);
         this.input.keyboard.removeKeyCapture(Phaser.Keyboard.ONE);
@@ -101,6 +105,7 @@ var GameState = {
     },
 
     bfs: function() {
+        this.clearMap();
         var start = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
         if (start == null) return;
         
@@ -146,6 +151,7 @@ var GameState = {
     },
 
     dijkstra: function() {
+        this.clearMap();
         var start = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
         if (start == null) return;
         
@@ -194,6 +200,7 @@ var GameState = {
     },
 
     aStar: function() {
+        this.clearMap();
         var start = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
         var end = this.map.searchTileIndex(this.tiles.end, 0, false, this.main);
     },
