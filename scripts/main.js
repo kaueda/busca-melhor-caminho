@@ -139,7 +139,7 @@ var GameState = {
         }
 
         while (parent.index != this.tiles.start) {
-            console.log(parent);
+            // console.log(parent);
             this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
             parent = parent.traceback;
         }
