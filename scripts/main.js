@@ -17,8 +17,11 @@ var GameState = {
         
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        for (i in this.map.tiles) this.map.tiles[i].visited = 0;
-        this.bfs(this.map.searchTileIndex(this.tiles.start))
+        for (var x in this.map.width)
+            for(var y in this.map.height)
+                this.map.getTile(x, y, this.main, true).visited = 0;
+
+        this.bfs(this.map.searchTileIndex(this.tiles.start, 0, false, this.main))
     },
 
     update: function() {
@@ -49,6 +52,8 @@ var GameState = {
 
     bfs: function(start) {
         console.log(start)
+        if (start == null) return;
+        
         var queue = new Array();
 
         start.visited = 2;
@@ -64,13 +69,13 @@ var GameState = {
                     neighbor.visited = 2;
                     neighbor.traceback = current;
                     // pinta de amarelo
-                    //this.over.putTile(this.tiles.visited, neighbor.x, neighbor.y);
+                    //this.map.putTile(this.tiles.visited, neighbor.x, neighbor.y);
                     queue.push(neighbor);
                 }
             }
 
             // pinta de azul
-            //this.over.putTile(this.tiles.visited, current.x, current.y);
+            //this.map.putTile(this.tiles.visited, current.x, current.y);
         }
     },
 
