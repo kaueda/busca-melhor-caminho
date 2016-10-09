@@ -17,19 +17,19 @@ var GameState = {
 
     update: function() {
         if (this.input.mousePointer.isDown) {
-            this.map.putTile(this.tiles.visited, 
+            this.map.putTile(this.tiles.finished, 
                              this.layer.getTileX(this.input.worldX), 
                              this.layer.getTileY(this.input.worldY));
         }
     },
 
     tiles: {
-        start:    1,
-        end:      4,
-        wall:     6,
-        wall2:    7,
-        mud:      3,
-        empty:    5,
+        start:    2,
+        end:      5,
+        wall:     7,
+        wall2:    8,
+        mud:      9,
+        empty:    6,
         visited:  2,
         finished: 0
     }
