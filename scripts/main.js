@@ -17,7 +17,7 @@ var GameState = {
 
     update: function() {
         if (this.input.mousePointer.isDown) {
-            this.map.getTile(this.input.x, this.input.y, this.layer, true).index = 5
+            this.map.getTile(this.input.x, this.input.y, this.layer, false).index = 5
         }
     }
 };
