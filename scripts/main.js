@@ -18,7 +18,7 @@ var GameState = {
         this.cursors = this.input.keyboard.createCursorKeys();
 
         for (i in this.map.tiles) this.map.tiles[i].visited = 0;
-        this.bfs(this.map.searchTileIndex(tiles.start))
+        this.bfs(this.map.searchTileIndex(this.tiles.start))
     },
 
     update: function() {
