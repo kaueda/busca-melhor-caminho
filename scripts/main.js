@@ -11,7 +11,7 @@ var GameState = {
         this.main = null;
         this.over = null;
         
-        this.loadNewMap('map1');
+        this.loadNewMap('map2');
         this.mudWeight = 2;
         this.heuristic = this.manhatanDistance;
         this.clearMap();
@@ -385,7 +385,7 @@ var GameState = {
     }
 };
 
-var game = new Phaser.Game(320, 320, Phaser.Auto);
+var game = new Phaser.Game(3200, 3200, Phaser.Auto);
 
 game.state.add('GameState', GameState);
 game.state.start('GameState');
