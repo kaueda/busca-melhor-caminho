@@ -107,6 +107,8 @@ var GameState = {
         this.over.alpha = 0.2;
 
         this.game.scale.setGameSize(this.map.widthInPixels, this.map.heightInPixels);
+        this.game.stage.bounds.width = this.map.widthInPixels;
+        this.game.stage.bounds.height = this.map.heightInPixels;
     },
 
     changeMap: function() {
