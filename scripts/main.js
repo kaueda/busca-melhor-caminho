@@ -15,12 +15,21 @@ var GameState = {
         this.over = this.map.createBlankLayer('over', 10, 10, 32, 32);
         this.over.alpha = 0.2;
         
+        this.mudWeight = 2;
         this.clearMap();
 
         this.input.mouse.capture = true;
         // this.cursors = this.input.keyboard.createCursorKeys();
 
         var keyaux;
+        keyaux = this.input.keyboard.addKey(Phaser.Keyboard.I);
+        keyaux.onDown.add(this.increaseMudWeight, this);
+        this.input.keyboard.removeKeyCapture(Phaser.Keyboard.I);
+
+        keyaux = this.input.keyboard.addKey(Phaser.Keyboard.D);
+        keyaux.onDown.add(this.decreaseMudWeight, this);
+        this.input.keyboard.removeKeyCapture(Phaser.Keyboard.D);
+
         keyaux = this.input.keyboard.addKey(Phaser.Keyboard.ZERO);
         keyaux.onDown.add(this.clearMap, this);
         this.input.keyboard.removeKeyCapture(Phaser.Keyboard.ZERO);
@@ -70,7 +79,7 @@ var GameState = {
             for (var y = 0; y < this.map.height; y++) {
                 this.map.getTile(x, y, this.main, true).visited = 0;
                 this.map.getTile(x, y, this.main, true).traceback = null;
-                this.map.getTile(x, y, this.main, true).distance = Infinity;1
+                this.map.getTile(x, y, this.main, true).distance = Infinity;
 
                 this.map.putTile(null, x, y, this.over);
             }
@@ -165,7 +174,7 @@ var GameState = {
 
                 var newDistance;
                 if (neighbors[i].index == this.tiles.mud)
-                    newDistance = current.distance + 2;
+                    newDistance = current.distance + this.mudWeight;
                 else
                     newDistance = current.distance + 1;
 
@@ -196,6 +205,14 @@ var GameState = {
         this.clearMap();
         var start = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
         var end = this.map.searchTileIndex(this.tiles.end, 0, false, this.main);
+    },
+
+    increaseMudWeight: function() {
+        this.mudWeight++;
+    },
+
+    decreaseMudWeight: function() {
+        this.mudWeight--;
     },
 
     tiles: {
