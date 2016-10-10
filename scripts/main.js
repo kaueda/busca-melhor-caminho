@@ -385,7 +385,7 @@ var GameState = {
     }
 };
 
-var game = new Phaser.Game(3200, 3200, Phaser.Auto);
+var game = new Phaser.Game(1750, 1750, Phaser.Auto);
 
 game.state.add('GameState', GameState);
 game.state.start('GameState');
