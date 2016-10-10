@@ -80,31 +80,17 @@ var GameState = {
 
     findNeighbors: function(tile) {
         var ans = new Array();
-        var auxTile = null;
+        if(tile.y - 1 >= 0)
+            ans.push(this.map.getTile(tile.x, tile.y - 1, this.main, true));
 
-        if(tile.y - 1 >= 0) {
-            auxTile = this.map.getTile(tile.x, tile.y - 1, this.main, true);
-            if (auxTile.index > 0) ans.push(auxTile);
-            else console.log(auxTile.index);
-        }
+        if(tile.y + 1 < this.map.height)
+            ans.push(this.map.getTile(tile.x, tile.y + 1, this.main, true));
 
-        if(tile.y + 1 < this.map.height) {
-            auxTile = this.map.getTile(tile.x, tile.y + 1, this.main, true);
-            if (auxTile.index > 0) ans.push(auxTile);
-            else console.log(auxTile.index);
-        }
+        if(tile.x - 1 >= 0)
+            ans.push(this.map.getTile(tile.x - 1, tile.y, this.main, true));
 
-        if(tile.x - 1 >= 0) {
-            auxTile = this.map.getTile(tile.x - 1, tile.y, this.main, true);
-            if (auxTile.index > 0) ans.push(auxTile);
-            else console.log(auxTile.index);
-        }
-
-        if(tile.x + 1 < this.map.width) {
-            auxTile = this.map.getTile(tile.x + 1, tile.y, this.main, true);
-            if (auxTile.index > 0) ans.push(auxTile);
-            else console.log(auxTile.index);
-        }
+        if(tile.x + 1 < this.map.width)
+            ans.push(this.map.getTile(tile.x + 1, tile.y, this.main, true));
 
         return ans;
     },
