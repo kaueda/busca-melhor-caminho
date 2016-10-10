@@ -16,7 +16,6 @@ var GameState = {
         this.heuristic = this.manhatanDistance;
 
         this.input.mouse.capture = true;
-        // this.cursors = this.input.keyboard.createCursorKeys();
 
         this.info = this.add.text(0, 0, "", {fill:"#FFFFFF"});
 
