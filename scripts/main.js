@@ -110,6 +110,7 @@ var GameState = {
 
         this.game.scale.setGameSize(this.map.widthInPixels, this.map.heightInPixels);
         this.game.scale.setShowAll();
+        this.game.scale.refresh();
     },
 
     changeMap: function() {
