@@ -250,14 +250,17 @@ var GameState = {
         }
 
         parent = end;
+        var pathDist = 0;
         while (parent.index != this.tiles.start) {
             // console.log(parent);
+            pathDist += parent.distance;
             this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
             parent = parent.traceback;
         }
 
         this.info.text = "Iterações: " + iterations + "\n" +
-                         "Tempo: " + (performance.now() - stime).toFixed(2) + "ms";
+                         "Tempo: " + (performance.now() - stime).toFixed(2) + "ms\n" + 
+                         "Distância: " + pathDist.tofixed(2) + "passos";
     },
 
     aStar: function() {
@@ -308,14 +311,17 @@ var GameState = {
         }
 
         parent = end;
+        var pathDist = 0;
         while (parent.index != this.tiles.start) {
             // console.log(parent);
+            pathDist += parent.distance;
             this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
             parent = parent.traceback;
         }
 
         this.info.text = "Iterações: " + iterations + "\n" +
-                         "Tempo: " + (performance.now() - stime).toFixed(2) + "ms";
+                         "Tempo: " + (performance.now() - stime).toFixed(2) + "ms\n"
+                         "Distância: " + pathDist.tofixed(2) + "passos";
     },
 
     greedy: function() {
@@ -367,14 +373,17 @@ var GameState = {
         }
 
         parent = end;
+        var pathDist = 0;
         while (parent.index != this.tiles.start) {
             // console.log(parent);
+            pathDist += parent.distance;
             this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
             parent = parent.traceback;
         }
 
         this.info.text = "Iterações: " + iterations + "\n" +
-                         "Tempo: " + (performance.now() - stime).toFixed(2) + "ms";
+                         "Tempo: " + (performance.now() - stime).toFixed(2) + "ms\n"
+                         "Distância: " + pathDist.tofixed(2) + "passos";
     },
 
     manhatanDistance: function(a, b) {
