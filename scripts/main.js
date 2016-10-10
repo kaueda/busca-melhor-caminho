@@ -322,9 +322,9 @@ var GameState = {
         var pathDist = 0;
         while (parent.index != this.tiles.start) {
             if (parent.index == this.tiles.mud)
-                pathDist += this.mudWeight;
+                pathDist += this.mudWeight*this.heuristic(parent, parent.traceback);
             else
-                pathDist += 1;
+                pathDist += this.heuristic(parent, parent.traceback);
 
             this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
             parent = parent.traceback;
