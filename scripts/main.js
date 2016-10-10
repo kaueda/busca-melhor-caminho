@@ -93,7 +93,7 @@ var GameState = {
         if (this.main != null) this.main.destroy()
         if (this.over != null) this.over.destroy()
 
-        this.map = this.add.tilemap('mapName');
+        this.map = this.add.tilemap(mapName);
         this.map.addTilesetImage('tiles', 'tiles');
 
         this.main = this.map.createLayer('main_' + mapName);
