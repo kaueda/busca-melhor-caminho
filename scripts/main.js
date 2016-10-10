@@ -162,6 +162,7 @@ var GameState = {
 
         start.visited = 2;
         start.traceback = null;
+        start.distance = 0;
         queue.push(start);
 
         while (queue.length > 0) {
@@ -172,6 +173,11 @@ var GameState = {
             for (var i in neighbors) {
                 if (neighbors[i].index == this.tiles.wall 
                     || neighbors[i].index == this.tiles.wall2) continue;
+
+                if (neighbors[i].index == this.tiles.mud)
+                    neighbors[i].distance = current.distance + this.mudWeight;
+                else
+                    neighbors[i].distance = current.distance + 1;
 
                 if (neighbors[i].visited != 2) {
                     neighbors[i].visited = 2;
@@ -192,14 +198,17 @@ var GameState = {
             if (parent != null && parent.index == this.tiles.end) break;
         }
 
+        var end = parent;
         while (parent.index != this.tiles.start) {
             // console.log(parent);
             this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
             parent = parent.traceback;
         }
 
-        this.info.text = "Iterações: " + iterations + "\n" +
-                         "Tempo: " + (performance.now() - stime).toFixed(2) + "ms";
+        this.info.text = "Algoritmo: Busca em Largura (BFS)\n" +
+                         "Iterações: " + iterations + "\n" +
+                         "Tempo: " + (performance.now() - stime).toFixed(2) + "ms\n" +
+                         "Distância: " + end.distance.toFixed(2) + "passos";
     },
 
     dijkstra: function() {
@@ -256,8 +265,9 @@ var GameState = {
             parent = parent.traceback;
         }
 
-        this.info.text = "Iterações: " + iterations + "\n" +
-                         "Tempo: " + (performance.now() - stime).toFixed(2) + "ms\n" + 
+        this.info.text = "Algoritmo: Dijkstra\n" +
+                         "Iterações: " + iterations + "\n" +
+                         "Tempo: " + (performance.now() - stime).toFixed(2) + "ms\n" +
                          "Distância: " + end.distance.toFixed(2) + "passos";
     },
 
@@ -315,8 +325,9 @@ var GameState = {
             parent = parent.traceback;
         }
 
-        this.info.text = "Iterações: " + iterations + "\n" +
-                         "Tempo: " + (performance.now() - stime).toFixed(2) + "ms\n"
+        this.info.text = "Algoritmo: A*\n" +
+                         "Iterações: " + iterations + "\n" +
+                         "Tempo: " + (performance.now() - stime).toFixed(2) + "ms\n" +
                          "Distância: " + end.distance.toFixed(2) + "passos";
     },
 
@@ -371,14 +382,18 @@ var GameState = {
         parent = end;
         var pathDist = 0;
         while (parent.index != this.tiles.start) {
-            // console.log(parent);
-            pathDist += parent.distance;
+            if (parent.index == this.tiles.mud)
+                pathDist += this.mudWeight + this.heuristic(parent, parent.traceback);
+            else
+                pathDist += 1 + this.heuristic(parent, parent.traceback);
+            
             this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
             parent = parent.traceback;
         }
 
-        this.info.text = "Iterações: " + iterations + "\n" +
-                         "Tempo: " + (performance.now() - stime).toFixed(2) + "ms\n"
+        this.info.text = "Algoritmo: Greedy (Ambicioso)\n" + 
+                         "Iterações: " + iterations + "\n" +
+                         "Tempo: " + (performance.now() - stime).toFixed(2) + "ms\n" +
                          "Distância: " + pathDist.toFixed(2) + "passos";
     },
 
@@ -404,6 +419,7 @@ var GameState = {
 
     decreaseMudWeight: function() {
         this.mudWeight--;
+        if(this.mudWeight < 0) this.mudWeight = 0;
     },
 
     tiles: {
