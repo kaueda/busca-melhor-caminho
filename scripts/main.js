@@ -6,7 +6,7 @@ var GameState = {
     },
 
     create: function() {
-        this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+        this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
 
         // Objetos principais
         this.map = null;
@@ -94,9 +94,9 @@ var GameState = {
     },
 
     loadNewMap: function(mapName) {
-        if (this.map != null) this.map.destroy()
-        if (this.main != null) this.main.destroy()
-        if (this.over != null) this.over.destroy()
+        if (this.map != null) this.map.destroy();
+        if (this.main != null) this.main.destroy();
+        if (this.over != null) this.over.destroy();
 
         this.map = this.add.tilemap(mapName);
         this.map.addTilesetImage('tiles', 'tiles');
