@@ -1,20 +1,17 @@
 var GameState = {
     preload: function() {
        this.load.tilemap('map1', './assets/map1.json', null, Phaser.Tilemap.TILED_JSON);
+       this.load.tilemap('map2', './assets/map2.json', null, Phaser.Tilemap.TILED_JSON);
        this.load.image('tiles', './assets/tileset.png');
     },
 
     create: function() {
-        this.map = this.add.tilemap('map1');
-        this.map.addTilesetImage('tiles', 'tiles');
-
-        this.main = this.map.createLayer('main');
-        this.main.resizeWorld();
-        this.main.wrap = true;
-
-        this.over = this.map.createBlankLayer('over', 10, 10, 32, 32);
-        this.over.alpha = 0.2;
+        // Objetos principais
+        this.map = null;
+        this.main = null;
+        this.over = null;
         
+        this.loadNewMap('map1');
         this.mudWeight = 2;
         this.heuristic = this.manhatanDistance;
         this.clearMap();
@@ -23,6 +20,10 @@ var GameState = {
         // this.cursors = this.input.keyboard.createCursorKeys();
 
         var keyaux;
+        keyaux = this.input.keyboard.addKey(Phaser.Keyboard.M);
+        keyaux.onDown.add(this.changeMap, this);
+        this.input.keyboard.removeKeyCapture(Phaser.Keyboard.M);
+        
         keyaux = this.input.keyboard.addKey(Phaser.Keyboard.Q);
         keyaux.onDown.add(this.heuristicToManhatan, this);
         this.input.keyboard.removeKeyCapture(Phaser.Keyboard.Q);
@@ -84,6 +85,34 @@ var GameState = {
                 this.map.putTile(startTile.iwas, startTile.x, startTile.y, this.main);
                 this.map.putTile(this.tiles.start, newStartTile.x, newStartTile.y, this.main);
             }
+        }
+    },
+
+    loadNewMap: function(mapName) {
+        if (this.map != null) this.map.destroy()
+        if (this.main != null) this.main.destroy()
+        if (this.over != null) this.over.destroy()
+
+        this.map = this.add.tilemap('mapName');
+        this.map.addTilesetImage('tiles', 'tiles');
+
+        this.main = this.map.createLayer('main_' + mapName);
+        this.main.resizeWorld();
+        this.main.wrap = true;
+
+        this.over = this.map.createBlankLayer('over_' + mapName, this.map.width, this.map.height, this.map.tileWidth, this.map.tileHeight);
+        this.over.alpha = 0.2;
+
+        this.game.scale(this.map.widthInPixels, this.map.heightInPixels);
+    },
+
+    changeMap: function() {
+        if (this.map.key == 'map1') {
+            this.loadNewMap('map2');
+        } else if (this.map.key == 'map2') {
+            this.loadNewMap('map1');
+        } else {
+            console.log("Failed to change maps.");
         }
     },
 
