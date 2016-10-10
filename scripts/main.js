@@ -85,22 +85,25 @@ var GameState = {
         if(tile.y - 1 >= 0) {
             auxTile = this.map.getTile(tile.x, tile.y - 1, this.main, true);
             if (auxTile.index > 0) ans.push(auxTile);
-            console.log(auxTile.index);
+            else console.log(auxTile.index);
         }
 
         if(tile.y + 1 < this.map.height) {
             auxTile = this.map.getTile(tile.x, tile.y + 1, this.main, true);
             if (auxTile.index > 0) ans.push(auxTile);
+            else console.log(auxTile.index);
         }
 
         if(tile.x - 1 >= 0) {
             auxTile = this.map.getTile(tile.x - 1, tile.y, this.main, true);
             if (auxTile.index > 0) ans.push(auxTile);
+            else console.log(auxTile.index);
         }
 
         if(tile.x + 1 < this.map.width) {
             auxTile = this.map.getTile(tile.x + 1, tile.y, this.main, true);
             if (auxTile.index > 0) ans.push(auxTile);
+            else console.log(auxTile.index);
         }
 
         return ans;
