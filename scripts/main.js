@@ -6,6 +6,8 @@ var GameState = {
     },
 
     create: function() {
+        this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+
         // Objetos principais
         this.map = null;
         this.main = null;
@@ -107,6 +109,7 @@ var GameState = {
         this.over.alpha = 0.2;
 
         this.game.scale.setGameSize(this.map.widthInPixels, this.map.heightInPixels);
+        this.game.scale.setShowAll();
     },
 
     changeMap: function() {
