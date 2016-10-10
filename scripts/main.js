@@ -109,7 +109,7 @@ var GameState = {
         this.over.alpha = 0.2;
 
         this.game.scale.setGameSize(this.map.widthInPixels, this.map.heightInPixels);
-        this.game.scale.setShowAll();
+        this.game.scale.setScreenSize(true);
         this.game.scale.refresh();
     },
 
