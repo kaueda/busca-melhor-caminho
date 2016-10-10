@@ -19,6 +19,8 @@ var GameState = {
         this.input.mouse.capture = true;
         // this.cursors = this.input.keyboard.createCursorKeys();
 
+        this.info = this.add.text(0, 0, "", {fill: "#000000"});
+
         var keyaux;
         keyaux = this.input.keyboard.addKey(Phaser.Keyboard.M);
         keyaux.onDown.add(this.changeMap, this);
@@ -147,6 +149,8 @@ var GameState = {
     },
 
     bfs: function() {
+        var stime = this.time.now;
+        var iterations = 0;
         this.clearMap();
         var start = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
         if (start == null) return;
@@ -179,6 +183,7 @@ var GameState = {
                     this.map.putTile(this.tiles.visited, neighbors[i].x, neighbors[i].y, this.over);
                     queue.push(neighbors[i]);
                 }
+                iterations++;
             }
             // pinta de azul
             this.map.putTile(this.tiles.finished, current.x, current.y, this.over);
@@ -191,9 +196,14 @@ var GameState = {
             this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
             parent = parent.traceback;
         }
+
+        this.info.text = "Iterações: " + iterations + "\n" +
+                         "Tempo: " + this.time.elapsedSince(stime);
     },
 
     dijkstra: function() {
+        var stime = this.time.now;
+        var iterations = 0;
         this.clearMap();
         var start = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
         var end = this.map.searchTileIndex(this.tiles.end, 0, false, this.main);
@@ -232,6 +242,7 @@ var GameState = {
                     // pinta de amarelo
                     this.map.putTile(this.tiles.visited, neighbors[i].x, neighbors[i].y, this.over);
                 }
+                iterations++;
             }
             // pinta de azul
             this.map.putTile(this.tiles.finished, current.x, current.y, this.over);
@@ -243,9 +254,14 @@ var GameState = {
             this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
             parent = parent.traceback;
         }
+
+        this.info.text = "Iterações: " + iterations + "\n" +
+                         "Tempo: " + this.time.elapsedSince(stime);
     },
 
     aStar: function() {
+        var stime = this.time.now;
+        var iterations = 0;
         this.clearMap();
         var start = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
         var end = this.map.searchTileIndex(this.tiles.end, 0, false, this.main);
@@ -284,6 +300,7 @@ var GameState = {
                     // pinta de amarelo
                     this.map.putTile(this.tiles.visited, neighbors[i].x, neighbors[i].y, this.over);
                 }
+                iterations++;
             }
             // pinta de azul
             this.map.putTile(this.tiles.finished, current.x, current.y, this.over);
@@ -295,9 +312,14 @@ var GameState = {
             this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
             parent = parent.traceback;
         }
+
+        this.info.text = "Iterações: " + iterations + "\n" +
+                         "Tempo: " + this.time.elapsedSince(stime);
     },
 
-    greedy: function() {1
+    greedy: function() {
+        var stime = this.time.now;
+        var iterations = 0;
         this.clearMap();
         var start = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
         var end = this.map.searchTileIndex(this.tiles.end, 0, false, this.main);
@@ -336,6 +358,8 @@ var GameState = {
                     // pinta de amarelo
                     this.map.putTile(this.tiles.visited, neighbors[i].x, neighbors[i].y, this.over);
                 }
+
+                iterations++;
             }
             // pinta de azul
             this.map.putTile(this.tiles.finished, current.x, current.y, this.over);
@@ -347,6 +371,9 @@ var GameState = {
             this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
             parent = parent.traceback;
         }
+
+        this.info.text = "Iterações: " + iterations + "\n" +
+                         "Tempo: " + this.time.elapsedSince(stime);
     },
 
     manhatanDistance: function(a, b) {
