@@ -319,8 +319,13 @@ var GameState = {
         }
 
         parent = end;
+        var pathDist = 0;
         while (parent.index != this.tiles.start) {
-            // console.log(parent);
+            if (parent.index == this.tiles.mud)
+                pathDist += this.mudWeight;
+            else
+                pathDist += 1;
+
             this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
             parent = parent.traceback;
         }
@@ -328,7 +333,7 @@ var GameState = {
         this.info.text = "Algoritmo: A*\n" +
                          "Iterações: " + iterations + "\n" +
                          "Tempo: " + (performance.now() - stime).toFixed(2) + "ms\n" +
-                         "Distância: " + end.distance.toFixed(2) + "passos";
+                         "Distância: " + pathDist.toFixed(2) + "passos";
     },
 
     greedy: function() {
@@ -383,9 +388,9 @@ var GameState = {
         var pathDist = 0;
         while (parent.index != this.tiles.start) {
             if (parent.index == this.tiles.mud)
-                pathDist += this.mudWeight + this.heuristic(parent, parent.traceback);
+                pathDist += this.mudWeight;
             else
-                pathDist += 1 + this.heuristic(parent, parent.traceback);
+                pathDist += 1;
             
             this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
             parent = parent.traceback;
