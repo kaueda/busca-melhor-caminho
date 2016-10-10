@@ -14,7 +14,6 @@ var GameState = {
         this.loadNewMap('map2');
         this.mudWeight = 2;
         this.heuristic = this.manhatanDistance;
-        this.clearMap();
 
         this.input.mouse.capture = true;
         // this.cursors = this.input.keyboard.createCursorKeys();
@@ -62,6 +61,8 @@ var GameState = {
         keyaux = this.input.keyboard.addKey(Phaser.Keyboard.FOUR);
         keyaux.onDown.add(this.greedy, this);
         this.input.keyboard.removeKeyCapture(Phaser.Keyboard.FOUR);
+
+        this.clearMap();
     },
 
     update: function() {
