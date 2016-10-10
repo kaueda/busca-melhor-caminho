@@ -19,7 +19,8 @@ var GameState = {
         this.input.mouse.capture = true;
         // this.cursors = this.input.keyboard.createCursorKeys();
 
-        this.info = this.add.text(0, 1750, "", {fill: "#FFFFFF"});
+        this.info = this.add.text(1750, 1750, "", {});
+        this.info.anchor.setTo(1, 1);
 
         var keyaux;
         keyaux = this.input.keyboard.addKey(Phaser.Keyboard.M);
@@ -128,6 +129,8 @@ var GameState = {
                 this.map.putTile(null, x, y, this.over);
             }
         }
+
+        this.info.text = "";
         // console.log("Map cleared");
     },
 
@@ -412,7 +415,7 @@ var GameState = {
     }
 };
 
-var game = new Phaser.Game(1750, 1840, Phaser.Auto);
+var game = new Phaser.Game(1750, 1750, Phaser.Auto);
 
 game.state.add('GameState', GameState);
 game.state.start('GameState');
