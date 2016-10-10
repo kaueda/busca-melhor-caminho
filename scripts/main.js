@@ -286,9 +286,9 @@ var GameState = {
 
                 var newDistance;
                 if (neighbors[i].index == this.tiles.mud)
-                    newDistance = current.distance + this.mudWeight*this.heuristic(end, neighbors[i]);
+                    newDistance = current.distance + this.mudWeight + this.heuristic(end, neighbors[i]);
                 else
-                    newDistance = current.distance + this.heuristic(end, neighbors[i]);
+                    newDistance = current.distance + 1 + this.heuristic(end, neighbors[i]);
 
                 if (neighbors[i].distance > newDistance) {
                     neighbors[i].distance = newDistance;
@@ -344,9 +344,9 @@ var GameState = {
 
                 var newDistance;
                 if (neighbors[i].index == this.tiles.mud)
-                    newDistance = this.mudWeight*this.heuristic(end, neighbors[i]);
+                    newDistance = this.mudWeight + this.heuristic(end, neighbors[i]);
                 else
-                    newDistance = this.heuristic(end, neighbors[i]);
+                    newDistance = 1 + this.heuristic(end, neighbors[i]);
 
                 if (neighbors[i].distance > newDistance) {
                     neighbors[i].distance = newDistance;
