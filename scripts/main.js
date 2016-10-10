@@ -18,7 +18,7 @@ var GameState = {
         this.input.mouse.capture = true;
         // this.cursors = this.input.keyboard.createCursorKeys();
 
-        this.info = this.add.text(0, 0, "", {});
+        this.info = this.add.text(0, 0, "", {fill:"#FFFFFF"});
 
         var keyaux;
         keyaux = this.input.keyboard.addKey(Phaser.Keyboard.M);
