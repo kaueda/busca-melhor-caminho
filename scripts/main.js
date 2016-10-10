@@ -185,10 +185,11 @@ var GameState = {
 
                     queue.push(neighbors[i]);
                     queue.sort(function(a, b) { return a.distance > b.distance });
+                    
+                    // pinta de amarelo
+                    this.map.putTile(this.tiles.visited, neighbors[i].x, neighbors[i].y, this.over);
                 }
-                // pinta de amarelo
-                this.map.putTile(this.tiles.visited, neighbors[i].x, neighbors[i].y, this.over);
-            };
+            }
             // pinta de azul
             this.map.putTile(this.tiles.finished, current.x, current.y, this.over);
         }
