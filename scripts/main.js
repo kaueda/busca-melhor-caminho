@@ -6,7 +6,7 @@ var GameState = {
     },
 
     create: function() {
-        this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+        this.game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
 
         // Objetos principais
         this.map = null;
@@ -103,7 +103,6 @@ var GameState = {
 
         this.main = this.map.createLayer('main_' + mapName);
         this.main.resizeWorld();
-        this.main.wrap = true;
 
         this.over = this.map.createBlankLayer('over_' + mapName, this.map.width, this.map.height, this.map.tileWidth, this.map.tileHeight);
         this.over.alpha = 0.2;
