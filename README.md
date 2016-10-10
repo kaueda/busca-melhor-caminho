@@ -1,5 +1,7 @@
 # Busca Melhor Caminho
-Projeto desenvolvido como solução para o trabalho 1 da disciplina SCC0230 - Inteligência Artificial oferecida no segundo semestre de 2016 no Instituto de Ciências Matemática e de Computação da Universidade de São Paulo pela Professora Solange Oliveira Rezende.
+Projeto desenvolvido como solução para o trabalho 1 da disciplina SCC0230 - Inteligência 
+Artificial oferecida no segundo semestre de 2016 no Instituto de Ciências Matemática e de 
+Computação da Universidade de São Paulo e ministrada pela Professora Solange Oliveira Rezende.
 
 Acesse a solução pelo link: https://kaueda.github.io/busca-melhor-caminho/
 
