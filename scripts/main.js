@@ -151,7 +151,7 @@ var GameState = {
     },
 
     bfs: function() {
-        var stime = this.time.now;
+        var stime = performance.now();
         var iterations = 0;
         this.clearMap();
         var start = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
@@ -200,11 +200,11 @@ var GameState = {
         }
 
         this.info.text = "Iterações: " + iterations + "\n" +
-                         "Tempo: " + this.time.now + ", " + stime;
+                         "Tempo: " + (performance.now() - stime) + "ms";
     },
 
     dijkstra: function() {
-        var stime = this.time.now;
+        var stime = performance.now();
         var iterations = 0;
         this.clearMap();
         var start = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
@@ -258,11 +258,11 @@ var GameState = {
         }
 
         this.info.text = "Iterações: " + iterations + "\n" +
-                         "Tempo: " + this.time.now + ", " + stime;
+                         "Tempo: " + (performance.now() - stime) + "ms";
     },
 
     aStar: function() {
-        var stime = this.time.now;
+        var stime = performance.now();
         var iterations = 0;
         this.clearMap();
         var start = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
@@ -316,11 +316,11 @@ var GameState = {
         }
 
         this.info.text = "Iterações: " + iterations + "\n" +
-                         "Tempo: " + this.time.now + ", " + stime;
+                         "Tempo: " + (performance.now() - stime) + "ms";
     },
 
     greedy: function() {
-        var stime = this.time.now;
+        var stime = performance.now();
         var iterations = 0;
         this.clearMap();
         var start = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
@@ -375,7 +375,7 @@ var GameState = {
         }
 
         this.info.text = "Iterações: " + iterations + "\n" +
-                         "Tempo: " + this.time.now + ", " + stime;
+                         "Tempo: " + (performance.now() - stime) + "ms";
     },
 
     manhatanDistance: function(a, b) {
