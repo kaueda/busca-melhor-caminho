@@ -144,16 +144,16 @@ var GameState = {
 
                     if (neighbors[i].index == this.tiles.end) {
                         parent = neighbors[i];
-                        console.log("!!!BREAK!!!");
                         break;
                     }
                     // pinta de amarelo
                     this.map.putTile(this.tiles.visited, neighbors[i].x, neighbors[i].y, this.over);
                     queue.push(neighbors[i]);
                 }
-            };
+            }
             // pinta de azul
             this.map.putTile(this.tiles.finished, current.x, current.y, this.over);
+            if (parent != null && parent.index == this.tiles.end) break;
         }
 
         console.log("!!!PATH!!!");
