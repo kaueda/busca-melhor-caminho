@@ -66,8 +66,8 @@ var GameState = {
     },
 
     clearMap: function() {
-        for (var x in this.map.width) {
-            for (var y in this.map.height) {
+        for (var x = 0;  x < this.map.width; x++) {
+            for (var y = 0; y < this.map.height; y++) {
                 this.map.getTile(x, y, this.main, true).visited = 0;
                 this.map.getTile(x, y, this.main, true).distance = Infinity;
                 this.map.getTile(x, y, this.main, true).iwas = this.tiles.empty;
@@ -138,8 +138,7 @@ var GameState = {
                     this.map.putTile(this.tiles.visited, neighbors[i].x, neighbors[i].y, this.over);
                     queue.push(neighbors[i]);
                 }
-            }
-
+            };
             // pinta de azul
             this.map.putTile(this.tiles.finished, current.x, current.y, this.over);
         }
@@ -182,14 +181,13 @@ var GameState = {
                 if (neighbors[i].distance > newDistance) {
                     neighbors[i].distance = newDistance;
                     neighbors[i].traceback = current;
-                    
+
                     queue.push(neighbors[i]);
                     queue.sort(function(a, b) { return a.distance < b.distance })
                 }
                 // pinta de amarelo
                 this.map.putTile(this.tiles.visited, neighbors[i].x, neighbors[i].y, this.over);
-            }
-
+            };
             // pinta de azul
             this.map.putTile(this.tiles.finished, current.x, current.y, this.over);
         }
