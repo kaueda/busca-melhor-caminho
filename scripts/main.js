@@ -69,8 +69,8 @@ var GameState = {
         for (var x = 0;  x < this.map.width; x++) {
             for (var y = 0; y < this.map.height; y++) {
                 this.map.getTile(x, y, this.main, true).visited = 0;
-                this.map.getTile(x, y, this.main, true).distance = Infinity;
-                this.map.getTile(x, y, this.main, true).iwas = this.tiles.empty;
+                this.map.getTile(x, y, this.main, true).traceback = null;
+                this.map.getTile(x, y, this.main, true).distance = Infinity;1
 
                 this.map.putTile(null, x, y, this.over);
             }
@@ -192,11 +192,11 @@ var GameState = {
             this.map.putTile(this.tiles.finished, current.x, current.y, this.over);
         }
 
-        // while (parent.index != this.tiles.start) {
-        //     console.log(parent);
-        //     this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
-        //     parent = parent.traceback;
-        // }
+        while (parent.index != this.tiles.start) {
+            console.log(parent);
+            this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
+            parent = parent.traceback;
+        }
     },
 
     aStar: function() {
