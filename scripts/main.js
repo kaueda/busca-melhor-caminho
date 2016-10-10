@@ -200,7 +200,7 @@ var GameState = {
         }
 
         this.info.text = "Iterações: " + iterations + "\n" +
-                         "Tempo: " + this.time.elapsedSecondsSince(stime);
+                         "Tempo: " + (this.time.now - stime);
     },
 
     dijkstra: function() {
@@ -258,7 +258,7 @@ var GameState = {
         }
 
         this.info.text = "Iterações: " + iterations + "\n" +
-                         "Tempo: " + this.time.elapsedSecondsSince(stime);
+                         "Tempo: " + (this.time.now - stime);
     },
 
     aStar: function() {
@@ -316,7 +316,7 @@ var GameState = {
         }
 
         this.info.text = "Iterações: " + iterations + "\n" +
-                         "Tempo: " + this.time.elapsedSecondsSince(stime);
+                         "Tempo: " + (this.time.now - stime);
     },
 
     greedy: function() {
@@ -375,7 +375,7 @@ var GameState = {
         }
 
         this.info.text = "Iterações: " + iterations + "\n" +
-                         "Tempo: " + this.time.elapsedSecondsSince(stime);
+                         "Tempo: " + (this.time.now - stime);
     },
 
     manhatanDistance: function(a, b) {
