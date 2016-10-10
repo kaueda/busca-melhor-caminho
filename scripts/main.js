@@ -153,7 +153,8 @@ var GameState = {
     dijkstra: function() {
         this.clearMap();
         var start = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
-        if (start == null) return;
+        var end = this.map.searchTileIndex(this.tiles.end, 0, false, this.main);
+        if (start == null || end == null) return;
         
         var parent = null;
         var queue = new Array();
@@ -192,6 +193,7 @@ var GameState = {
             this.map.putTile(this.tiles.finished, current.x, current.y, this.over);
         }
 
+        parent = end;
         while (parent.index != this.tiles.start) {
             console.log(parent);
             this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
