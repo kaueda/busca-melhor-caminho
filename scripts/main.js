@@ -6,8 +6,6 @@ var GameState = {
     },
 
     create: function() {
-        this.game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
-
         // Objetos principais
         this.map = null;
         this.main = null;
