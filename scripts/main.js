@@ -319,7 +319,7 @@ var GameState = {
     },
 
     manhatanDistance: function(a, b) {
-        return abs(a.x - b.x) + abs(a.y - b.y);
+        return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
     },
 
     pointDistance: function(a, b) {
