@@ -192,7 +192,6 @@ var GameState = {
             if (parent != null && parent.index == this.tiles.end) break;
         }
 
-        console.log("!!!PATH!!!");
         while (parent.index != this.tiles.start) {
             // console.log(parent);
             this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
@@ -200,7 +199,7 @@ var GameState = {
         }
 
         this.info.text = "Iterações: " + iterations + "\n" +
-                         "Tempo: " + (performance.now() - stime) + "ms";
+                         "Tempo: " + (performance.now() - stime).toFixed(2) + "ms";
     },
 
     dijkstra: function() {
@@ -258,7 +257,7 @@ var GameState = {
         }
 
         this.info.text = "Iterações: " + iterations + "\n" +
-                         "Tempo: " + (performance.now() - stime) + "ms";
+                         "Tempo: " + (performance.now() - stime).toFixed(2) + "ms";
     },
 
     aStar: function() {
@@ -316,7 +315,7 @@ var GameState = {
         }
 
         this.info.text = "Iterações: " + iterations + "\n" +
-                         "Tempo: " + (performance.now() - stime) + "ms";
+                         "Tempo: " + (performance.now() - stime).toFixed(2) + "ms";
     },
 
     greedy: function() {
@@ -375,7 +374,7 @@ var GameState = {
         }
 
         this.info.text = "Iterações: " + iterations + "\n" +
-                         "Tempo: " + (performance.now() - stime) + "ms";
+                         "Tempo: " + (performance.now() - stime).toFixed(2) + "ms";
     },
 
     manhatanDistance: function(a, b) {
