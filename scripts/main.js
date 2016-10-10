@@ -16,15 +16,24 @@ var GameState = {
         this.over.alpha = 0.2;
         
         this.mudWeight = 2;
+        this.heuristic = this.manhatanDistance;
         this.clearMap();
 
         this.input.mouse.capture = true;
         // this.cursors = this.input.keyboard.createCursorKeys();
 
         var keyaux;
-        keyaux = this.input.keyboard.addKey(Phaser.Keyboard.I);
+        keyaux = this.input.keyboard.addKey(Phaser.Keyboard.Q);
+        keyaux.onDown.add(this.heuristicToManhatan, this);
+        this.input.keyboard.removeKeyCapture(Phaser.Keyboard.Q);
+
+        keyaux = this.input.keyboard.addKey(Phaser.Keyboard.W);
+        keyaux.onDown.add(this.heuristicToPoint, this);
+        this.input.keyboard.removeKeyCapture(Phaser.Keyboard.W);
+        
+        keyaux = this.input.keyboard.addKey(Phaser.Keyboard.A);
         keyaux.onDown.add(this.increaseMudWeight, this);
-        this.input.keyboard.removeKeyCapture(Phaser.Keyboard.I);
+        this.input.keyboard.removeKeyCapture(Phaser.Keyboard.A);
 
         keyaux = this.input.keyboard.addKey(Phaser.Keyboard.D);
         keyaux.onDown.add(this.decreaseMudWeight, this);
@@ -42,9 +51,9 @@ var GameState = {
         keyaux.onDown.add(this.dijkstra, this);
         this.input.keyboard.removeKeyCapture(Phaser.Keyboard.TWO);
 
-        // keyaux = this.input.keyboard.addKey(Phaser.Keyboard.THREE);
-        // keyaux.onDown.add(this.aStar, this);
-        // this.input.keyboard.removeKeyCapture(Phaser.Keyboard.THREE);
+        keyaux = this.input.keyboard.addKey(Phaser.Keyboard.THREE);
+        keyaux.onDown.add(this.aStar, this);
+        this.input.keyboard.removeKeyCapture(Phaser.Keyboard.THREE);
     },
 
     update: function() {
@@ -205,6 +214,68 @@ var GameState = {
         this.clearMap();
         var start = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
         var end = this.map.searchTileIndex(this.tiles.end, 0, false, this.main);
+        if (start == null || end == null) return;
+        
+        var parent = null;
+        var queue = new Array();
+
+        start.traceback = null;
+        start.distance = 0;
+        queue.push(start);
+
+        while (queue.length > 0) {
+            var current = queue.shift();
+            
+            if (current.index == this.tiles.end) break;
+
+            var neighbors = this.findNeighbors(current)
+            for (var i in neighbors) {
+                if (neighbors[i].index == this.tiles.wall 
+                    || neighbors[i].index == this.tiles.wall2) continue;
+
+                var newDistance;
+                if (neighbors[i].index == this.tiles.mud)
+                    newDistance = current.distance + this.mudWeight*this.heuristic(start, neighbors[i]);
+                else
+                    newDistance = current.distance + this.heuristic(start, neighbors[i]);
+
+                if (neighbors[i].distance > newDistance) {
+                    neighbors[i].distance = newDistance;
+                    neighbors[i].traceback = current;
+
+                    queue.push(neighbors[i]);
+                    queue.sort(function(a, b) { return a.distance > b.distance });
+                    
+                    // pinta de amarelo
+                    this.map.putTile(this.tiles.visited, neighbors[i].x, neighbors[i].y, this.over);
+                }
+            }
+            // pinta de azul
+            this.map.putTile(this.tiles.finished, current.x, current.y, this.over);
+        }
+
+        parent = end;
+        while (parent.index != this.tiles.start) {
+            // console.log(parent);
+            this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
+            parent = parent.traceback;
+        }
+    },
+
+    manhatanDistance: function(a, b) {
+        return abs(a.x - b.x) + abs(a.y - b.y);
+    },
+
+    pointDistance: function(a, b) {
+        return Math.sqrt(Math.pow(a.x - b.x) + Math.pow(a.y - b.y));
+    },
+
+    heuristicToManhatan: function() {
+        this.heuristic = this.manhatanDistance;
+    },
+
+    heuristicToPoint: function() {
+        this.heuristic = this.pointDistance;
     },
 
     increaseMudWeight: function() {
