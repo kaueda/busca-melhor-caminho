@@ -144,6 +144,7 @@ var GameState = {
 
                     if (neighbors[i].index == this.tiles.end) {
                         parent = neighbors[i];
+                        console.log("!!!BREAK!!!");
                         break;
                     }
                     // pinta de amarelo
@@ -155,6 +156,7 @@ var GameState = {
             this.map.putTile(this.tiles.finished, current.x, current.y, this.over);
         }
 
+        console.log("!!!PATH!!!");
         while (parent.index != this.tiles.start) {
             // console.log(parent);
             this.map.putTile(this.tiles.end, parent.x, parent.y, this.over);
@@ -266,7 +268,7 @@ var GameState = {
         }
     },
 
-    greedy: function() {
+    greedy: function() {1
         this.clearMap();
         var start = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
         var end = this.map.searchTileIndex(this.tiles.end, 0, false, this.main);
