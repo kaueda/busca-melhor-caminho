@@ -184,7 +184,7 @@ var GameState = {
                     neighbors[i].traceback = current;
 
                     queue.push(neighbors[i]);
-                    queue.sort(function(a, b) { return a.distance < b.distance })
+                    queue.sort(function(a, b) { return a.distance > b.distance });
                 }
                 // pinta de amarelo
                 this.map.putTile(this.tiles.visited, neighbors[i].x, neighbors[i].y, this.over);
