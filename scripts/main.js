@@ -108,8 +108,7 @@ var GameState = {
         this.over = this.map.createBlankLayer('over_' + mapName, this.map.width, this.map.height, this.map.tileWidth, this.map.tileHeight);
         this.over.alpha = 0.2;
 
-        this.main.scale.set(this.map.widthInPixels/1750, this.map.heightInPixels/1750);
-        this.over.scale.set(this.map.widthInPixels/1750, this.map.heightInPixels/1750);
+        this.game.scale.setGameSize(this.map.widthInPixels, this.map.heightInPixels);
     },
 
     changeMap: function() {
