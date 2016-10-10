@@ -68,7 +68,7 @@ var GameState = {
         if (this.input.activePointer.withinGame) this.input.enabled = true;
         else this.input.enabled = false;
 
-        if (this.input.activePointer.leftButton.isDown) {
+        if (this.input.activePointer.leftButton.isDown && this.input.worldY >= 192) {
             var endTile = this.map.searchTileIndex(this.tiles.end, 0, false, this.main);
             var newEndTile = this.map.getTileWorldXY(this.input.worldX, this.input.worldY, 32, 32, this.main);
 
@@ -79,7 +79,7 @@ var GameState = {
             }
         }
 
-        if (this.input.activePointer.middleButton.isDown) {
+        if (this.input.activePointer.middleButton.isDown && this.input.worldY >= 192) {
             var startTile = this.map.searchTileIndex(this.tiles.start, 0, false, this.main);
             var newStartTile = this.map.getTileWorldXY(this.input.worldX, this.input.worldY, 32, 32, this.main);
 
@@ -135,7 +135,7 @@ var GameState = {
 
     findNeighbors: function(tile) {
         var ans = new Array();
-        if(tile.y - 1 >= 0)
+        if(tile.y - 1 >= 6)
             ans.push(this.map.getTile(tile.x, tile.y - 1, this.main, true));
 
         if(tile.y + 1 < this.map.height)
