@@ -208,7 +208,8 @@ var GameState = {
         this.info.text = "Algoritmo: Busca em Largura (BFS)\n" +
                          "Iterações: " + iterations + "\n" +
                          "Tempo: " + (performance.now() - stime).toFixed(2) + "ms\n" +
-                         "Distância: " + end.distance.toFixed(2) + "passos";
+                         "Distância: " + end.distance.toFixed(2) + " passos\n" + 
+                         "Lama: " + this.mudWeight;
     },
 
     dijkstra: function() {
@@ -268,7 +269,8 @@ var GameState = {
         this.info.text = "Algoritmo: Dijkstra\n" +
                          "Iterações: " + iterations + "\n" +
                          "Tempo: " + (performance.now() - stime).toFixed(2) + "ms\n" +
-                         "Distância: " + end.distance.toFixed(2) + "passos";
+                         "Distância: " + end.distance.toFixed(2) + " passos\n" + 
+                         "Lama: " + this.mudWeight;
     },
 
     aStar: function() {
@@ -333,7 +335,8 @@ var GameState = {
         this.info.text = "Algoritmo: A*\n" +
                          "Iterações: " + iterations + "\n" +
                          "Tempo: " + (performance.now() - stime).toFixed(2) + "ms\n" +
-                         "Distância: " + pathDist.toFixed(2) + "passos";
+                         "Distância: " + pathDist.toFixed(2) + " passos\n" + 
+                         "Lama: " + this.mudWeight;
     },
 
     greedy: function() {
@@ -399,7 +402,8 @@ var GameState = {
         this.info.text = "Algoritmo: Greedy (Ambicioso)\n" + 
                          "Iterações: " + iterations + "\n" +
                          "Tempo: " + (performance.now() - stime).toFixed(2) + "ms\n" +
-                         "Distância: " + pathDist.toFixed(2) + "passos";
+                         "Distância: " + pathDist.toFixed(2) + " passos\n" + 
+                         "Lama: " + this.mudWeight;
     },
 
     manhatanDistance: function(a, b) {
