@@ -260,7 +260,7 @@ var GameState = {
 
         this.info.text = "Iterações: " + iterations + "\n" +
                          "Tempo: " + (performance.now() - stime).toFixed(2) + "ms\n" + 
-                         "Distância: " + pathDist.tofixed(2) + "passos";
+                         "Distância: " + pathDist.toFixed(2) + "passos";
     },
 
     aStar: function() {
@@ -321,7 +321,7 @@ var GameState = {
 
         this.info.text = "Iterações: " + iterations + "\n" +
                          "Tempo: " + (performance.now() - stime).toFixed(2) + "ms\n"
-                         "Distância: " + pathDist.tofixed(2) + "passos";
+                         "Distância: " + pathDist.toFixed(2) + "passos";
     },
 
     greedy: function() {
@@ -383,7 +383,7 @@ var GameState = {
 
         this.info.text = "Iterações: " + iterations + "\n" +
                          "Tempo: " + (performance.now() - stime).toFixed(2) + "ms\n"
-                         "Distância: " + pathDist.tofixed(2) + "passos";
+                         "Distância: " + pathDist.toFixed(2) + "passos";
     },
 
     manhatanDistance: function(a, b) {
